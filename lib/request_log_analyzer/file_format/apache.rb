@@ -45,10 +45,13 @@ module RequestLogAnalyzer::FileFormat
       's' => { nil => { :regexp => '(\d{3})', :captures => [{:name => :http_status, :type => :integer}] } },
       'u' => { nil => { :regexp => '(\w+|-)', :captures => [{:name => :user, :type => :nillable_string}] } },
       'U' => { nil => { :regexp => '(\/\S*)', :captures => [{:name => :path, :type => :string}] } },
-      'r' => { nil => { :regexp => '([A-Z]+) (\S+) HTTP\/(\d+(?:\.\d+)*)', :captures => [{:name => :http_method, :type => :string},
+      'r' => { nil => { :regexp => '(?:-|(?:([A-Z]+) (\S+) HTTP\/(\d+(?:\.\d+)*)))', :captures => [{:name => :http_method, :type => :string},
                        {:name => :path, :type => :path}, {:name => :http_version, :type => :string}]} },
       'i' => { 'Referer'    => { :regexp => '(\S+)', :captures => [{:name => :referer, :type => :nillable_string}] },
-               'User-agent' => { :regexp => '(.*)',  :captures => [{:name => :user_agent, :type => :user_agent}] }
+               'User-agent' => { :regexp => '(.*)',  :captures => [{:name => :user_agent, :type => :user_agent}] },
+               'X-Forwarded-For' => { :regexp => '(.*)',  :captures => [{:name => :x_forwarded_for, :type => :nillable_string}] },
+               'Upstream-Address' => { :regexp => '(.*)',  :captures => [{:name => :upstream_addr, :type => :nillable_string}] },
+               'Gzip-Ratio' => { :regexp => '(.*)',  :captures => [{:name => :gzip_ratio, :type => :nillable_string}] }
              }
     }
 
